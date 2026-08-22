@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Projects by Mind X Associates — experiments, tools, and ideas from our psychotherapy collective.">
+  <title>Projects by Mind X Associates</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg:#08090b; --text:#fafafa; --muted:#9b9ba4; --dim:#5e5e67; --border:rgba(255,255,255,.09); }
+    html { background:var(--bg); }
+    body {
+      min-height:100vh; overflow:hidden; display:flex; align-items:center; justify-content:center;
+      padding:32px; background:var(--bg); color:var(--text);
+      font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    }
+    .ambient { position:fixed; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+    .orb { position:absolute; border-radius:50%; filter:blur(90px); opacity:.14; animation:drift 18s ease-in-out infinite alternate; }
+    .orb.one { width:520px; height:520px; left:-160px; top:-180px; background:#60a5fa; }
+    .orb.two { width:480px; height:480px; right:-150px; bottom:-180px; background:#a78bfa; animation-delay:-7s; animation-duration:22s; }
+    .orb.three { width:300px; height:300px; left:48%; top:42%; background:#6ee7b7; opacity:.055; animation-delay:-12s; }
+    @keyframes drift {
+      0% { transform:translate3d(0,0,0) scale(1); }
+      50% { transform:translate3d(45px,-25px,0) scale(1.08); }
+      100% { transform:translate3d(-20px,55px,0) scale(.95); }
+    }
+    .grid {
+      position:fixed; inset:0; pointer-events:none; z-index:0;
+      background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+                       linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+      background-size:70px 70px;
+      mask-image:radial-gradient(circle at center,black,transparent 78%);
+      -webkit-mask-image:radial-gradient(circle at center,black,transparent 78%);
+    }
+    .cursor-glow {
+      position:fixed; width:500px; height:500px; border-radius:50%;
+      background:radial-gradient(circle,rgba(255,255,255,.055),transparent 65%);
+      transform:translate(-50%,-50%); pointer-events:none; z-index:0; left:50%; top:50%;
+      transition:left .25s ease-out,top .25s ease-out;
+    }
+    .particle {
+      position:fixed; width:3px; height:3px; border-radius:50%; background:rgba(255,255,255,.25);
+      pointer-events:none; z-index:0; animation:particleFloat var(--duration) ease-in-out infinite alternate;
+    }
+    @keyframes particleFloat { from { transform:translateY(0); opacity:.15; } to { transform:translateY(-35px); opacity:.5; } }
+    main { position:relative; z-index:2; width:100%; max-width:780px; animation:reveal 1s cubic-bezier(.22,1,.36,1) both; }
+    @keyframes reveal { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:translateY(0); } }
+    .label {
+      display:inline-flex; align-items:center; gap:9px; margin-bottom:30px; padding:8px 13px;
+      border:1px solid var(--border); border-radius:999px; background:rgba(255,255,255,.035);
+      backdrop-filter:blur(12px); color:#a1a1aa; font-size:13px; letter-spacing:.04em; animation:reveal 1s .08s both;
+    }
+    .dot { position:relative; width:7px; height:7px; border-radius:50%; background:#86efac; box-shadow:0 0 12px rgba(134,239,172,.7); }
+    .dot::after { content:""; position:absolute; inset:-5px; border:1px solid rgba(134,239,172,.4); border-radius:50%; animation:pulse 2.3s ease-out infinite; }
+    @keyframes pulse { 0% { transform:scale(.5); opacity:.8; } 100% { transform:scale(1.8); opacity:0; } }
+    h1 { margin-bottom:25px; font-size:clamp(48px,9vw,88px); font-weight:650; letter-spacing:-.055em; line-height:.96; animation:reveal 1s .16s both; }
+    h1 span {
+      background:linear-gradient(110deg,#62626b 20%,#b8b8c0 45%,#62626b 70%); background-size:220% auto;
+      -webkit-background-clip:text; background-clip:text; color:transparent; animation:shimmer 7s linear infinite;
+    }
+    @keyframes shimmer { to { background-position:-220% center; } }
+    .description { max-width:610px; color:var(--muted); font-size:clamp(17px,2vw,20px); line-height:1.65; animation:reveal 1s .24s both; }
+    .footer {
+      margin-top:65px; padding-top:22px; border-top:1px solid var(--border); display:flex;
+      justify-content:space-between; align-items:center; gap:20px; color:var(--dim); font-size:13px; animation:reveal 1s .32s both;
+    }
+    .footer a { color:#777780; text-decoration:none; transition:color .25s ease; }
+    .footer a:hover { color:#fafafa; }
+    .arrow { display:inline-block; margin-left:3px; transition:transform .25s ease; }
+    .footer a:hover .arrow { transform:translateX(4px); }
+    .corner {
+      position:fixed; right:28px; top:26px; z-index:2; font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+      font-size:10px; letter-spacing:.12em; color:#38383f; text-transform:uppercase; animation:reveal 1.2s .4s both;
+    }
+    @media (max-width:600px) {
+      body { padding:24px; }
+      .footer { flex-direction:column; align-items:flex-start; gap:10px; }
+      .corner,.cursor-glow { display:none; }
+      .grid { background-size:50px 50px; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="ambient">
+    <div class="orb one"></div><div class="orb two"></div><div class="orb three"></div>
+  </div>
+  <div class="grid"></div>
+  <div class="cursor-glow" id="cursorGlow"></div>
+  <div class="corner">Experimental / Mind X</div>
+  <main>
+    <div class="label"><span class="dot"></span>Projects by Mind X Associates</div>
+    <h1>Ideas in<br><span>progress.</span></h1>
+    <p class="description">The latest experiments, tools, and ideas from our psychotherapy collective.</p>
+    <div class="footer">
+      <span>Projects by Mind X Associates</span>
+      <a href="https://www.mindx.us">Visit mindx.us <span class="arrow">→</span></a>
+    </div>
+  </main>
+  <script>
+    const glow=document.getElementById("cursorGlow");
+    document.addEventListener("mousemove",(event)=>{
+      glow.style.left=event.clientX+"px";
+      glow.style.top=event.clientY+"px";
+    });
+    const particleCount=16;
+    for(let i=0;i<particleCount;i++){
+      const particle=document.createElement("div");
+      particle.className="particle";
+      particle.style.left=Math.random()*100+"vw";
+      particle.style.top=Math.random()*100+"vh";
+      particle.style.setProperty("--duration",(5+Math.random()*8)+"s");
+      particle.style.animationDelay=(-Math.random()*8)+"s";
+      document.body.appendChild(particle);
+    }
+  </script>
+</body>
+</html>
