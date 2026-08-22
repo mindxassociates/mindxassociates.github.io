@@ -1,1 +1,1 @@
-# mindxassociates..github.io
+# mindxassociates.github.io
