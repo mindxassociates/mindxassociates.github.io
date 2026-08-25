@@ -3,137 +3,833 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Projects by Mind X Associates — thoughtful digital tools, experiments, and ideas from our psychotherapy collective.">
-  <meta name="theme-color" content="#08090b">
-  <title>Projects by Mind X Associates</title>
+
+  <title>Mind X Projects</title>
+  <meta
+    name="description"
+    content="Free tools and resources created by Mind X Associates."
+  >
+
   <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    :root{--bg:#08090b;--panel:rgba(255,255,255,.045);--panel-hover:rgba(255,255,255,.07);--text:#fafafa;--muted:#9b9ba4;--dim:#666670;--border:rgba(255,255,255,.09);--border-hover:rgba(255,255,255,.17)}
-    html{background:var(--bg);scroll-behavior:smooth}
-    body{min-height:100vh;overflow-x:hidden;padding:32px;background:var(--bg);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-    .ambient{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
-    .orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.14;animation:drift 18s ease-in-out infinite alternate}
-    .orb.one{width:520px;height:520px;left:-160px;top:-180px;background:#60a5fa}
-    .orb.two{width:480px;height:480px;right:-150px;bottom:-180px;background:#a78bfa;animation-delay:-7s;animation-duration:22s}
-    .orb.three{width:360px;height:360px;left:48%;top:42%;background:#6ee7b7;opacity:.055;animation-delay:-12s}
-    @keyframes drift{0%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(45px,-25px,0) scale(1.08)}100%{transform:translate3d(-20px,55px,0) scale(.95)}}
-    .grid{position:fixed;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:70px 70px;mask-image:radial-gradient(circle at center,black,transparent 78%);-webkit-mask-image:radial-gradient(circle at center,black,transparent 78%)}
-    .cursor-glow{position:fixed;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.055),transparent 65%);transform:translate(-50%,-50%);pointer-events:none;z-index:0;left:50%;top:50%;transition:left .25s ease-out,top .25s ease-out}
-    .particle{position:fixed;width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.25);pointer-events:none;z-index:0;animation:particleFloat var(--duration) ease-in-out infinite alternate}
-    @keyframes particleFloat{from{transform:translateY(0);opacity:.15}to{transform:translateY(-35px);opacity:.5}}
-    .shell{position:relative;z-index:2;width:100%;max-width:1080px;margin:0 auto;padding:12vh 0 48px}
-    .hero{max-width:780px;animation:reveal 1s cubic-bezier(.22,1,.36,1) both}
-    @keyframes reveal{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
-    .label{display:inline-flex;align-items:center;gap:9px;margin-bottom:30px;padding:8px 13px;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,.035);backdrop-filter:blur(12px);color:#a1a1aa;font-size:13px;letter-spacing:.04em}
-    .dot{position:relative;width:7px;height:7px;border-radius:50%;background:#86efac;box-shadow:0 0 12px rgba(134,239,172,.7)}
-    .dot::after{content:"";position:absolute;inset:-5px;border:1px solid rgba(134,239,172,.4);border-radius:50%;animation:pulse 2.3s ease-out infinite}
-    @keyframes pulse{0%{transform:scale(.5);opacity:.8}100%{transform:scale(1.8);opacity:0}}
-    h1{margin-bottom:25px;font-size:clamp(48px,9vw,88px);font-weight:650;letter-spacing:-.055em;line-height:.96}
-    h1 span{background:linear-gradient(110deg,#62626b 20%,#b8b8c0 45%,#62626b 70%);background-size:220% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 7s linear infinite}
-    @keyframes shimmer{to{background-position:-220% center}}
-    .description{max-width:610px;color:var(--muted);font-size:clamp(17px,2vw,20px);line-height:1.65}
-    .projects-section{margin-top:88px;padding-top:30px;border-top:1px solid var(--border);animation:reveal 1s .18s both}
-    .section-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:28px}
-    .section-kicker{margin-bottom:7px;color:var(--dim);font-size:11px;letter-spacing:.14em;text-transform:uppercase}
-    .section-title{font-size:clamp(26px,4vw,38px);font-weight:580;letter-spacing:-.035em}
-    .section-note{max-width:390px;color:var(--dim);font-size:13px;line-height:1.6;text-align:right}
-    .projects-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-    .project-card{position:relative;min-height:235px;display:flex;flex-direction:column;padding:26px;border:1px solid var(--border);border-radius:22px;background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.025));backdrop-filter:blur(18px);box-shadow:0 18px 60px rgba(0,0,0,.16);overflow:hidden;transition:transform .3s cubic-bezier(.22,1,.36,1),border-color .3s ease,background .3s ease,box-shadow .3s ease}
-    .project-card::before{content:"";position:absolute;inset:0;background:radial-gradient(450px circle at var(--x,50%) var(--y,0%),rgba(255,255,255,.075),transparent 42%);opacity:0;transition:opacity .3s ease;pointer-events:none}
-    .project-card:hover{transform:translateY(-5px);border-color:var(--border-hover);background:var(--panel-hover);box-shadow:0 24px 70px rgba(0,0,0,.24)}
-    .project-card:hover::before{opacity:1}
-    .project-title{position:relative;margin-bottom:12px;font-size:21px;font-weight:590;letter-spacing:-.025em;line-height:1.2;overflow-wrap:anywhere}
-    .project-description{position:relative;max-width:95%;color:var(--muted);font-size:14px;line-height:1.65}
-    .project-actions{position:relative;display:flex;align-items:center;gap:10px;margin-top:auto;padding-top:28px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 15px;border:1px solid var(--border);border-radius:999px;color:#b8b8c0;text-decoration:none;font-size:13px;font-weight:520;transition:background .22s ease,border-color .22s ease,color .22s ease,transform .22s ease}
-    .btn:hover{border-color:rgba(255,255,255,.22);color:#fff;transform:translateY(-1px)}
-    .btn.primary{background:#f1f1f3;border-color:#f1f1f3;color:#111216}
-    .btn.primary:hover{background:#fff;border-color:#fff;color:#08090b}
-    .loading{grid-column:1/-1;padding:34px 0;color:var(--dim);font-size:14px}
-    .loading-line{width:100%;height:1px;margin-top:14px;overflow:hidden;background:var(--border)}
-    .loading-line::after{content:"";display:block;width:30%;height:100%;background:rgba(255,255,255,.3);animation:load 1.4s ease-in-out infinite}
-    @keyframes load{from{transform:translateX(-110%)}to{transform:translateX(440%)}}
-    .footer{margin-top:70px;padding-top:22px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:20px;color:var(--dim);font-size:13px}
-    .footer a{color:#777780;text-decoration:none;transition:color .25s ease}.footer a:hover{color:#fafafa}.arrow{display:inline-block;margin-left:3px;transition:transform .25s ease}.footer a:hover .arrow{transform:translateX(4px)}
-    .corner{position:fixed;right:28px;top:26px;z-index:2;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;letter-spacing:.12em;color:#38383f;text-transform:uppercase}
-    @media(max-width:760px){body{padding:24px}.shell{padding-top:10vh}.projects-section{margin-top:68px}.section-head{align-items:flex-start;flex-direction:column}.section-note{text-align:left}.projects-grid{grid-template-columns:1fr}.project-card{min-height:220px}.footer{flex-direction:column;align-items:flex-start;gap:10px}.corner,.cursor-glow{display:none}.grid{background-size:50px 50px}}
-    @media(max-width:430px){body{padding:20px}.project-card{padding:22px;border-radius:19px}.project-actions{flex-wrap:wrap}.btn{flex:1 1 auto}}
-    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+    :root {
+      --bg: #07111f;
+      --bg-soft: #0b1728;
+      --card: rgba(255, 255, 255, 0.055);
+      --card-hover: rgba(255, 255, 255, 0.085);
+      --border: rgba(255, 255, 255, 0.10);
+      --border-hover: rgba(255, 255, 255, 0.20);
+      --text: #f2f5f8;
+      --muted: #9daabc;
+      --accent: #9cc6d7;
+      --accent-soft: rgba(156, 198, 215, 0.12);
+      --max-width: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(52, 95, 125, 0.18), transparent 34%),
+        radial-gradient(circle at 85% 25%, rgba(74, 105, 132, 0.12), transparent 32%),
+        linear-gradient(180deg, #081321 0%, #07111f 55%, #050c16 100%);
+      color: var(--text);
+      font-family:
+        Inter,
+        "Noto Sans SC",
+        "PingFang SC",
+        "Microsoft YaHei",
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.035;
+      background-image:
+        linear-gradient(rgba(255,255,255,.4) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.4) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .page {
+      width: min(calc(100% - 40px), var(--max-width));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* HERO */
+
+    .hero {
+      padding: 110px 0 80px;
+      max-width: 800px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 7px 12px;
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255,255,255,.035);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 16px rgba(156,198,215,.65);
+    }
+
+    h1 {
+      font-size: clamp(48px, 8vw, 86px);
+      line-height: .98;
+      letter-spacing: -0.055em;
+      font-weight: 650;
+      margin-bottom: 28px;
+    }
+
+    .hero p {
+      max-width: 650px;
+      color: var(--muted);
+      font-size: clamp(17px, 2vw, 20px);
+      line-height: 1.75;
+    }
+
+    /* LANGUAGE NAV */
+
+    .language-nav {
+      display: flex;
+      gap: 8px;
+      margin-top: 34px;
+      flex-wrap: wrap;
+    }
+
+    .language-nav a {
+      text-decoration: none;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      padding: 9px 15px;
+      border-radius: 999px;
+      font-size: 14px;
+      transition: .25s ease;
+    }
+
+    .language-nav a:hover {
+      color: var(--text);
+      border-color: var(--border-hover);
+      background: rgba(255,255,255,.065);
+    }
+
+    /* SECTIONS */
+
+    .projects-section {
+      padding: 55px 0 90px;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 30px;
+      margin-bottom: 35px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(30px, 4vw, 43px);
+      letter-spacing: -0.035em;
+      line-height: 1.1;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 560px;
+    }
+
+    .section-label {
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 650;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 13px;
+    }
+
+    /* PROJECT GRID */
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .project-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 250px;
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.065),
+          rgba(255,255,255,.025)
+        );
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition:
+        transform .3s ease,
+        border-color .3s ease,
+        background .3s ease,
+        box-shadow .3s ease;
+      overflow: hidden;
+    }
+
+    .project-card::after {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      right: -90px;
+      top: -90px;
+      border-radius: 50%;
+      background: rgba(156,198,215,.07);
+      filter: blur(5px);
+      transition: transform .35s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-hover);
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.085),
+          rgba(255,255,255,.035)
+        );
+      box-shadow: 0 22px 50px rgba(0,0,0,.18);
+    }
+
+    .project-card:hover::after {
+      transform: scale(1.15);
+    }
+
+    .project-card h3 {
+      position: relative;
+      z-index: 1;
+      font-size: 22px;
+      line-height: 1.3;
+      letter-spacing: -0.025em;
+      font-weight: 600;
+      margin-bottom: 13px;
+      overflow-wrap: anywhere;
+    }
+
+    .project-card p {
+      position: relative;
+      z-index: 1;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+      margin-bottom: 28px;
+      flex: 1;
+    }
+
+    .project-actions {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 9px 15px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      transition: .22s ease;
+    }
+
+    .button-primary {
+      background: var(--text);
+      color: #07111f;
+      border: 1px solid var(--text);
+    }
+
+    .button-primary:hover {
+      opacity: .86;
+      transform: translateY(-1px);
+    }
+
+    .button-secondary {
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: rgba(255,255,255,.025);
+    }
+
+    .button-secondary:hover {
+      color: var(--text);
+      border-color: var(--border-hover);
+      background: rgba(255,255,255,.06);
+    }
+
+    /* CHINESE SECTION */
+
+    .chinese-projects-section {
+      position: relative;
+    }
+
+    .chinese-projects-section .project-card {
+      background:
+        linear-gradient(
+          145deg,
+          rgba(156,198,215,.075),
+          rgba(255,255,255,.025)
+        );
+    }
+
+    /* STATUS */
+
+    .status {
+      grid-column: 1 / -1;
+      padding: 35px 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* FOOTER */
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 35px 0 50px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    footer a {
+      text-decoration: none;
+      transition: color .2s ease;
+    }
+
+    footer a:hover {
+      color: var(--text);
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 760px) {
+      .page {
+        width: min(calc(100% - 28px), var(--max-width));
+      }
+
+      .hero {
+        padding: 80px 0 65px;
+      }
+
+      .projects-section {
+        padding: 45px 0 70px;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-heading {
+        display: block;
+      }
+
+      .project-card {
+        min-height: 230px;
+        padding: 24px;
+        border-radius: 18px;
+      }
+
+      .footer-inner {
+        display: block;
+      }
+
+      .footer-inner > * + * {
+        margin-top: 8px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
   </style>
 </head>
+
 <body>
-  <div class="ambient"><div class="orb one"></div><div class="orb two"></div><div class="orb three"></div></div>
-  <div class="grid"></div><div class="cursor-glow" id="cursorGlow"></div><div class="corner">Experimental / Mind X</div>
-  <main class="shell">
-    <section class="hero">
-      <div class="label"><span class="dot"></span>Projects by Mind X Associates</div>
-      <h1>Ideas in<br><span>progress.</span></h1>
-      <p class="description">Thoughtful digital tools, experiments, and ideas from our psychotherapy collective.</p>
-    </section>
-    <section class="projects-section" aria-labelledby="projects-title">
-      <div class="section-head">
-        <div><div class="section-kicker">Selected work</div><h2 class="section-title" id="projects-title">Projects</h2></div>
-        <p class="section-note">A growing collection of practical tools created and curated by Mind X Associates.</p>
+
+  <main class="page">
+
+    <header class="hero">
+      <div class="eyebrow">Mind X Associates</div>
+
+      <h1>Free Tools.</h1>
+
+      <p>
+        Practical tools and resources created by Mind X Associates
+        for therapists, clinicians, and mental health professionals.
+      </p>
+
+      <nav class="language-nav" aria-label="Project languages">
+        <a href="#projects">English</a>
+        <a href="#chinese-projects">中文</a>
+      </nav>
+    </header>
+
+
+    <!-- ENGLISH PROJECTS -->
+
+    <section
+      id="projects"
+      class="projects-section"
+      aria-labelledby="english-heading"
+    >
+      <div class="section-heading">
+        <div>
+          <div class="section-label">Resources</div>
+
+          <h2 id="english-heading">Projects</h2>
+
+          <p>
+            Free tools and resources created by Mind X Associates.
+          </p>
+        </div>
       </div>
-      <div class="projects-grid" id="projects" aria-live="polite">
-        <div class="loading" id="loading">Loading projects…<div class="loading-line"></div></div>
+
+      <div
+        id="english-projects"
+        class="projects-grid"
+        aria-live="polite"
+      >
+        <div class="status">Loading projects…</div>
       </div>
     </section>
-    <footer class="footer"><span>Projects by Mind X Associates</span><a href="https://www.mindx.us">Visit mindx.us <span class="arrow">→</span></a></footer>
+
+
+    <!-- CHINESE PROJECTS -->
+
+    <section
+      id="chinese-projects"
+      class="projects-section chinese-projects-section hidden"
+      aria-labelledby="chinese-heading"
+      lang="zh-CN"
+    >
+      <div class="section-heading">
+        <div>
+          <div class="section-label">中文资源</div>
+
+          <h2 id="chinese-heading">中文项目</h2>
+
+          <p>
+            Mind X Associates 为心理咨询师、临床工作者及心理健康专业人士制作的免费中文工具与资源。
+          </p>
+        </div>
+      </div>
+
+      <div
+        id="chinese-projects-grid"
+        class="projects-grid"
+        aria-live="polite"
+      ></div>
+    </section>
+
   </main>
+
+
+  <footer>
+    <div class="page footer-inner">
+      <span>Mind X Associates</span>
+
+      <a
+        href="https://www.mindx.us/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        mindx.us ↗
+      </a>
+    </div>
+  </footer>
+
+
   <script>
-    const GITHUB_USER="mindxassociates";
-    const LANDING_REPO="mindxassociates.github.io";
-    const PROJECTS_BASE="https://projects.mindx.us";
-    const projects=document.getElementById("projects");
-    const glow=document.getElementById("cursorGlow");
+    const GITHUB_USERNAME = "mindxassociates";
+    const PROJECTS_DOMAIN = "https://projects.mindx.us";
 
-    document.addEventListener("mousemove",event=>{glow.style.left=event.clientX+"px";glow.style.top=event.clientY+"px"});
 
-    for(let i=0;i<16;i++){
-      const particle=document.createElement("div");particle.className="particle";
-      particle.style.left=Math.random()*100+"vw";particle.style.top=Math.random()*100+"vh";
-      particle.style.setProperty("--duration",(5+Math.random()*8)+"s");particle.style.animationDelay=(-Math.random()*8)+"s";
-      document.body.appendChild(particle);
+    /*
+     * Detect whether a repository description contains
+     * Chinese characters.
+     */
+    function containsChinese(text = "") {
+      return /[\u3400-\u4DBF\u4E00-\u9FFF]/.test(text);
     }
 
-    function makeButton(label,url,primary=false){
-      const a=document.createElement("a");a.className="btn"+(primary?" primary":"");a.textContent=label;
-      a.href=url;a.target="_blank";a.rel="noopener noreferrer";return a;
-    }
 
-    function renderProject(repo){
-      const card=document.createElement("article");card.className="project-card";
-      const title=document.createElement("h3");title.className="project-title";title.textContent=repo.name;
-      const description=document.createElement("p");description.className="project-description";description.textContent=repo.description||"A project by Mind X Associates.";
-      const actions=document.createElement("div");actions.className="project-actions";
-      const liveUrl=(repo.homepage&&/^https?:\/\//i.test(repo.homepage))
-        ? repo.homepage
-        : `${PROJECTS_BASE}/${encodeURIComponent(repo.name)}/`;
-      actions.appendChild(makeButton("Open Project ↗",liveUrl,true));
-      actions.appendChild(makeButton("View on GitHub",repo.html_url));
-      card.append(title,description,actions);
-      card.addEventListener("mousemove",e=>{const r=card.getBoundingClientRect();card.style.setProperty("--x",(e.clientX-r.left)+"px");card.style.setProperty("--y",(e.clientY-r.top)+"px")});
+    /*
+     * Create a project card safely using DOM methods rather
+     * than inserting API content directly with innerHTML.
+     */
+    function createProjectCard(repo, isChinese) {
+
+      const card = document.createElement("article");
+      card.className = "project-card";
+
+
+      /* PROJECT TITLE */
+
+      const title = document.createElement("h3");
+      title.textContent = repo.name;
+
+
+      /* PROJECT DESCRIPTION */
+
+      const description = document.createElement("p");
+
+      if (repo.description) {
+        description.textContent = repo.description;
+      } else {
+        description.textContent = isChinese
+          ? "Mind X Associates 免费工具与资源。"
+          : "A free tool or resource from Mind X Associates.";
+      }
+
+
+      /* BUTTON AREA */
+
+      const actions = document.createElement("div");
+      actions.className = "project-actions";
+
+
+      /*
+       * OPEN PROJECT
+       *
+       * First preference:
+       * GitHub repository homepage / Website field.
+       *
+       * If no homepage has been configured, automatically
+       * use projects.mindx.us/repository-name/
+       */
+
+      const liveProjectURL =
+        repo.homepage && repo.homepage.trim()
+          ? repo.homepage.trim()
+          : `${PROJECTS_DOMAIN}/${encodeURIComponent(repo.name)}/`;
+
+
+      const openProject = document.createElement("a");
+
+      openProject.className = "button button-primary";
+      openProject.href = liveProjectURL;
+      openProject.target = "_blank";
+      openProject.rel = "noopener noreferrer";
+
+      openProject.textContent = isChinese
+        ? "打开工具 ↗"
+        : "Open Project ↗";
+
+
+      /* VIEW ON GITHUB */
+
+      const githubButton = document.createElement("a");
+
+      githubButton.className = "button button-secondary";
+      githubButton.href = repo.html_url;
+      githubButton.target = "_blank";
+      githubButton.rel = "noopener noreferrer";
+
+      githubButton.textContent = isChinese
+        ? "查看 GitHub"
+        : "View on GitHub";
+
+
+      /* ASSEMBLE CARD */
+
+      actions.appendChild(openProject);
+      actions.appendChild(githubButton);
+
+      card.appendChild(title);
+      card.appendChild(description);
+      card.appendChild(actions);
+
       return card;
     }
 
-    async function loadProjects(){
-      try{
-        const response=await fetch(`https://api.github.com/users/${GITHUB_USER}/starred?per_page=100`,{headers:{Accept:"application/vnd.github+json"}});
-        if(!response.ok) throw new Error(`GitHub API returned ${response.status}`);
-        const repos=(await response.json()).filter(repo=>
-          repo.owner?.login?.toLowerCase()===GITHUB_USER.toLowerCase() &&
-          repo.name!==LANDING_REPO
+
+    /*
+     * Render a collection of repositories.
+     */
+    function renderProjects(repos, container, isChinese) {
+
+      container.replaceChildren();
+
+      repos.forEach(repo => {
+        container.appendChild(
+          createProjectCard(repo, isChinese)
         );
-        projects.replaceChildren();
-        if(!repos.length){document.querySelector(".projects-section").hidden=true;return}
-        repos.forEach(repo=>projects.appendChild(renderProject(repo)));
-      }catch(error){
-        console.warn("Projects could not be loaded.",error);
-        document.querySelector(".projects-section").hidden=true;
+      });
+    }
+
+
+    /*
+     * Fetch every starred repository.
+     *
+     * GitHub allows up to 100 repositories per page.
+     * This loop also supports more than 100 starred repos.
+     */
+    async function fetchStarredRepositories() {
+
+      const allRepos = [];
+      let page = 1;
+
+      while (true) {
+
+        const response = await fetch(
+          `https://api.github.com/users/${GITHUB_USERNAME}/starred` +
+          `?per_page=100&page=${page}`,
+          {
+            headers: {
+              "Accept": "application/vnd.github+json"
+            }
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(
+            `GitHub API returned ${response.status}`
+          );
+        }
+
+        const repos = await response.json();
+
+        allRepos.push(...repos);
+
+        if (repos.length < 100) {
+          break;
+        }
+
+        page++;
+      }
+
+      return allRepos;
+    }
+
+
+    /*
+     * Main application
+     */
+    async function loadProjects() {
+
+      const englishContainer =
+        document.getElementById("english-projects");
+
+      const chineseContainer =
+        document.getElementById("chinese-projects-grid");
+
+      const chineseSection =
+        document.getElementById("chinese-projects");
+
+
+      try {
+
+        const starredRepos =
+          await fetchStarredRepositories();
+
+
+        /*
+         * IMPORTANT FILTER:
+         *
+         * Only repositories OWNED by mindxassociates
+         * are displayed.
+         *
+         * This means you can star unrelated GitHub
+         * repositories without publishing them here.
+         */
+
+        const mindxRepos = starredRepos.filter(repo => {
+
+          if (!repo.owner || !repo.owner.login) {
+            return false;
+          }
+
+          return (
+            repo.owner.login.toLowerCase() ===
+            GITHUB_USERNAME.toLowerCase()
+          );
+        });
+
+
+        /*
+         * Don't show the repository that powers
+         * this landing page itself.
+         */
+
+        const projectRepos = mindxRepos.filter(repo =>
+          repo.name.toLowerCase() !==
+          "mindxassociates.github.io"
+        );
+
+
+        /*
+         * LANGUAGE SEPARATION
+         *
+         * Chinese description = 中文项目
+         * Everything else = Projects
+         */
+
+        const englishProjects =
+          projectRepos.filter(repo =>
+            !containsChinese(repo.description || "")
+          );
+
+        const chineseProjects =
+          projectRepos.filter(repo =>
+            containsChinese(repo.description || "")
+          );
+
+
+        /*
+         * RENDER ENGLISH
+         */
+
+        if (englishProjects.length > 0) {
+
+          renderProjects(
+            englishProjects,
+            englishContainer,
+            false
+          );
+
+        } else {
+
+          englishContainer.replaceChildren();
+
+          const empty = document.createElement("div");
+          empty.className = "status";
+          empty.textContent =
+            "More projects are coming soon.";
+
+          englishContainer.appendChild(empty);
+        }
+
+
+        /*
+         * RENDER CHINESE
+         *
+         * Hide the entire Chinese section when there
+         * aren't any Chinese repositories.
+         */
+
+        if (chineseProjects.length > 0) {
+
+          chineseSection.classList.remove("hidden");
+
+          renderProjects(
+            chineseProjects,
+            chineseContainer,
+            true
+          );
+
+        } else {
+
+          chineseSection.classList.add("hidden");
+        }
+
+
+      } catch (error) {
+
+        console.error(
+          "Unable to load GitHub projects:",
+          error
+        );
+
+
+        /*
+         * Fail gracefully.
+         *
+         * The rest of the website remains functional
+         * if GitHub's API is temporarily unavailable.
+         */
+
+        englishContainer.replaceChildren();
+
+        const fallback = document.createElement("div");
+        fallback.className = "status";
+        fallback.textContent =
+          "Projects are temporarily unavailable. Please check back shortly.";
+
+        englishContainer.appendChild(fallback);
+
+        chineseSection.classList.add("hidden");
       }
     }
+
+
     loadProjects();
   </script>
+
 </body>
 </html>
