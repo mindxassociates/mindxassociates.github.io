@@ -1,1 +1,0 @@
-# mindxassociates.github.io
