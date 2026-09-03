@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Mind X Projects</title>
+  <title>Mind X社区｜免费心理工具</title>
   <meta
     name="description"
-    content="Free tools and resources created by Mind X Associates."
+    content="Mind X社区为来访者、心理咨询师和心理健康专业人士制作的免费实用工具与资源。"
   >
 
   <style>
@@ -410,18 +410,17 @@
   <main class="page">
 
     <header class="hero">
-      <div class="eyebrow">Mind X Associates</div>
+      <div class="eyebrow">Mind X社区</div>
 
-      <h1>Free Tools.</h1>
+      <h1>免费心理工具。</h1>
 
       <p>
-        Practical, interactive resources for clients, therapists,
-        clinicians, and mental health professionals.
+        为来访者、心理咨询师及其他心理健康专业人士提供实用、互动的免费资源。
       </p>
 
-      <nav class="language-nav" aria-label="Project languages">
-        <a href="./" aria-current="page">English</a>
-        <a href="./zh/" lang="zh-CN">中文</a>
+      <nav class="language-nav" aria-label="语言选择">
+        <a href="../" lang="en">English</a>
+        <a href="./" aria-current="page">中文</a>
       </nav>
     </header>
 
@@ -431,17 +430,16 @@
     <section
       id="projects"
       class="projects-section"
-      aria-labelledby="english-heading"
+      aria-labelledby="projects-heading"
     >
       <div class="section-heading">
         <div>
-          <div class="section-label">Resources</div>
+          <div class="section-label">免费资源</div>
 
-          <h2 id="english-heading">Projects</h2>
+          <h2 id="projects-heading">探索工具</h2>
 
           <p>
-            Explore self-guided tools for clients alongside practical
-            resources for therapists and other mental health professionals.
+            这里既有帮助来访者自我探索与练习的互动工具，也有供心理咨询师和其他心理健康专业人士使用的实用资源。
           </p>
         </div>
       </div>
@@ -451,7 +449,7 @@
         class="projects-grid"
         aria-live="polite"
       >
-        <div class="status">Loading projects…</div>
+        <div class="status">正在加载工具…</div>
       </div>
     </section>
 
@@ -460,14 +458,14 @@
 
   <footer>
     <div class="page footer-inner">
-      <span>Mind X Associates</span>
+      <span>Mind X社区</span>
 
       <a
-        href="https://www.mindx.us/"
+        href="https://mindx.us/zh/"
         target="_blank"
         rel="noopener noreferrer"
       >
-        mindx.us ↗
+        访问 Mind X社区 ↗
       </a>
     </div>
   </footer>
@@ -510,7 +508,7 @@
       if (repo.description) {
         description.textContent = repo.description;
       } else {
-        description.textContent = "A free tool or resource from Mind X Associates.";
+        description.textContent = "Mind X社区提供的免费工具与资源。";
       }
 
 
@@ -543,7 +541,7 @@
       openProject.target = "_blank";
       openProject.rel = "noopener noreferrer";
 
-      openProject.textContent = "Open Tool ↗";
+      openProject.textContent = "打开工具 ↗";
 
 
       /* VIEW ON GITHUB */
@@ -555,7 +553,7 @@
       githubButton.target = "_blank";
       githubButton.rel = "noopener noreferrer";
 
-      githubButton.textContent = "View on GitHub";
+      githubButton.textContent = "查看 GitHub";
 
 
       /* ASSEMBLE CARD */
@@ -685,19 +683,20 @@
          * Everything else = Projects
          */
 
-        const englishProjects =
+        const chineseProjects =
           projectRepos.filter(repo =>
-            !containsChinese(repo.description || "")
+            containsChinese(repo.description || "")
           );
 
+
         /*
-         * RENDER ENGLISH
+         * RENDER CHINESE
          */
 
-        if (englishProjects.length > 0) {
+        if (chineseProjects.length > 0) {
 
           renderProjects(
-            englishProjects,
+            chineseProjects,
             englishContainer
           );
 
@@ -708,7 +707,7 @@
           const empty = document.createElement("div");
           empty.className = "status";
           empty.textContent =
-            "More projects are coming soon.";
+            "更多工具正在准备中。";
 
           englishContainer.appendChild(empty);
         }
@@ -733,7 +732,7 @@
         const fallback = document.createElement("div");
         fallback.className = "status";
         fallback.textContent =
-          "Projects are temporarily unavailable. Please check back shortly.";
+          "暂时无法加载工具，请稍后再试。";
 
         englishContainer.appendChild(fallback);
 
