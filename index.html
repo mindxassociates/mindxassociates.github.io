@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Mind X Projects</title>
+  <meta
+    name="description"
+    content="Free tools and resources created by Mind X Associates."
+  >
+
+  <style>
+    :root {
+      --bg: #07111f;
+      --bg-soft: #0b1728;
+      --card: rgba(255, 255, 255, 0.055);
+      --card-hover: rgba(255, 255, 255, 0.085);
+      --border: rgba(255, 255, 255, 0.10);
+      --border-hover: rgba(255, 255, 255, 0.20);
+      --text: #f2f5f8;
+      --muted: #9daabc;
+      --accent: #9cc6d7;
+      --accent-soft: rgba(156, 198, 215, 0.12);
+      --max-width: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(52, 95, 125, 0.18), transparent 34%),
+        radial-gradient(circle at 85% 25%, rgba(74, 105, 132, 0.12), transparent 32%),
+        linear-gradient(180deg, #081321 0%, #07111f 55%, #050c16 100%);
+      color: var(--text);
+      font-family:
+        Inter,
+        "Noto Sans SC",
+        "PingFang SC",
+        "Microsoft YaHei",
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.035;
+      background-image:
+        linear-gradient(rgba(255,255,255,.4) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.4) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .page {
+      width: min(calc(100% - 40px), var(--max-width));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* HERO */
+
+    .hero {
+      padding: 110px 0 80px;
+      max-width: 800px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 7px 12px;
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255,255,255,.035);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 16px rgba(156,198,215,.65);
+    }
+
+    h1 {
+      font-size: clamp(48px, 8vw, 86px);
+      line-height: .98;
+      letter-spacing: -0.055em;
+      font-weight: 650;
+      margin-bottom: 28px;
+    }
+
+    .hero p {
+      max-width: 650px;
+      color: var(--muted);
+      font-size: clamp(17px, 2vw, 20px);
+      line-height: 1.75;
+    }
+
+    /* LANGUAGE NAV */
+
+    .language-nav {
+      display: flex;
+      gap: 8px;
+      margin-top: 34px;
+      flex-wrap: wrap;
+    }
+
+    .language-nav a {
+      text-decoration: none;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      padding: 9px 15px;
+      border-radius: 999px;
+      font-size: 14px;
+      transition: .25s ease;
+    }
+
+    .language-nav a:hover {
+      color: var(--text);
+      border-color: var(--border-hover);
+      background: rgba(255,255,255,.065);
+    }
+
+    /* SECTIONS */
+
+    .projects-section {
+      padding: 55px 0 90px;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 30px;
+      margin-bottom: 35px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(30px, 4vw, 43px);
+      letter-spacing: -0.035em;
+      line-height: 1.1;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 560px;
+    }
+
+    .section-label {
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 650;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 13px;
+    }
+
+    /* PROJECT GRID */
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .project-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 250px;
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.065),
+          rgba(255,255,255,.025)
+        );
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition:
+        transform .3s ease,
+        border-color .3s ease,
+        background .3s ease,
+        box-shadow .3s ease;
+      overflow: hidden;
+    }
+
+    .project-card::after {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      right: -90px;
+      top: -90px;
+      border-radius: 50%;
+      background: rgba(156,198,215,.07);
+      filter: blur(5px);
+      transition: transform .35s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-hover);
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.085),
+          rgba(255,255,255,.035)
+        );
+      box-shadow: 0 22px 50px rgba(0,0,0,.18);
+    }
+
+    .project-card:hover::after {
+      transform: scale(1.15);
+    }
+
+    .project-card h3 {
+      position: relative;
+      z-index: 1;
+      font-size: 22px;
+      line-height: 1.3;
+      letter-spacing: -0.025em;
+      font-weight: 600;
+      margin-bottom: 13px;
+      overflow-wrap: anywhere;
+    }
+
+    .project-card p {
+      position: relative;
+      z-index: 1;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+      margin-bottom: 28px;
+      flex: 1;
+    }
+
+    .project-actions {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 9px 15px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      transition: .22s ease;
+    }
+
+    .button-primary {
+      background: var(--text);
+      color: #07111f;
+      border: 1px solid var(--text);
+    }
+
+    .button-primary:hover {
+      opacity: .86;
+      transform: translateY(-1px);
+    }
+
+    .button-secondary {
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: rgba(255,255,255,.025);
+    }
+
+    .button-secondary:hover {
+      color: var(--text);
+      border-color: var(--border-hover);
+      background: rgba(255,255,255,.06);
+    }
+
+    /* STATUS */
+
+    .status {
+      grid-column: 1 / -1;
+      padding: 35px 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* FOOTER */
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 35px 0 50px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    footer a {
+      text-decoration: none;
+      transition: color .2s ease;
+    }
+
+    footer a:hover {
+      color: var(--text);
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 760px) {
+      .page {
+        width: min(calc(100% - 28px), var(--max-width));
+      }
+
+      .hero {
+        padding: 80px 0 65px;
+      }
+
+      .projects-section {
+        padding: 45px 0 70px;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-heading {
+        display: block;
+      }
+
+      .project-card {
+        min-height: 230px;
+        padding: 24px;
+        border-radius: 18px;
+      }
+
+      .footer-inner {
+        display: block;
+      }
+
+      .footer-inner > * + * {
+        margin-top: 8px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="page">
+
+    <header class="hero">
+      <div class="eyebrow">Mind X Associates</div>
+
+      <h1>Free Tools.</h1>
+
+      <p>
+        Practical, interactive resources for clients, therapists,
+        clinicians, and mental health professionals.
+      </p>
+
+      <nav class="language-nav" aria-label="Project languages">
+        <a href="./" aria-current="page">English</a>
+        <a href="./zh/" lang="zh-CN">中文</a>
+      </nav>
+    </header>
+
+
+    <!-- CLIENT TOOLS -->
+
+    <section
+      id="projects"
+      class="projects-section"
+      aria-labelledby="clients-heading"
+    >
+      <div class="section-heading">
+        <div>
+          <div class="section-label">Resources</div>
+
+          <h2 id="clients-heading">For Clients</h2>
+
+          <p>
+            Interactive, self-guided tools for reflection, coping, and growth.
+          </p>
+        </div>
+      </div>
+
+      <div
+        id="client-projects"
+        class="projects-grid"
+        aria-live="polite"
+      >
+        <div class="status">Loading client tools…</div>
+      </div>
+    </section>
+
+    <!-- THERAPIST RESOURCES -->
+
+    <section
+      class="projects-section"
+      aria-labelledby="therapists-heading"
+    >
+      <div class="section-heading">
+        <div>
+          <div class="section-label">Professional Resources</div>
+          <h2 id="therapists-heading">For Therapists</h2>
+          <p>Practical resources for clinical work, learning, and professional development.</p>
+        </div>
+      </div>
+
+      <div id="therapist-projects" class="projects-grid" aria-live="polite">
+        <div class="status">Loading therapist resources…</div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <footer>
+    <div class="page footer-inner">
+      <span>Mind X Associates</span>
+
+      <a
+        href="https://www.mindx.us/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        mindx.us ↗
+      </a>
+    </div>
+  </footer>
+
+
+  <script>
+    const GITHUB_USERNAME = "mindxassociates";
+    const PROJECTS_DOMAIN = "https://projects.mindx.us";
+
+
+    /*
+     * Detect whether a repository description contains
+     * Chinese characters.
+     */
+    function containsChinese(text = "") {
+      return /[\u3400-\u4DBF\u4E00-\u9FFF]/.test(text);
+    }
+
+
+    /*
+     * Create a project card safely using DOM methods rather
+     * than inserting API content directly with innerHTML.
+     */
+    function createProjectCard(repo) {
+
+      const card = document.createElement("article");
+      card.className = "project-card";
+
+
+      /* PROJECT TITLE */
+
+      const title = document.createElement("h3");
+      title.textContent = repo.name;
+
+
+      /* PROJECT DESCRIPTION */
+
+      const description = document.createElement("p");
+
+      if (repo.description) {
+        description.textContent = repo.description;
+      } else {
+        description.textContent = "A free tool or resource from Mind X Associates.";
+      }
+
+
+      /* BUTTON AREA */
+
+      const actions = document.createElement("div");
+      actions.className = "project-actions";
+
+
+      /*
+       * OPEN PROJECT
+       *
+       * First preference:
+       * GitHub repository homepage / Website field.
+       *
+       * If no homepage has been configured, automatically
+       * use projects.mindx.us/repository-name/
+       */
+
+      const liveProjectURL =
+        repo.homepage && repo.homepage.trim()
+          ? repo.homepage.trim()
+          : `${PROJECTS_DOMAIN}/${encodeURIComponent(repo.name)}/`;
+
+
+      const openProject = document.createElement("a");
+
+      openProject.className = "button button-primary";
+      openProject.href = liveProjectURL;
+      openProject.target = "_blank";
+      openProject.rel = "noopener noreferrer";
+
+      openProject.textContent = "Open Tool ↗";
+
+
+      /* VIEW ON GITHUB */
+
+      const githubButton = document.createElement("a");
+
+      githubButton.className = "button button-secondary";
+      githubButton.href = repo.html_url;
+      githubButton.target = "_blank";
+      githubButton.rel = "noopener noreferrer";
+
+      githubButton.textContent = "View on GitHub";
+
+
+      /* ASSEMBLE CARD */
+
+      actions.appendChild(openProject);
+      actions.appendChild(githubButton);
+
+      card.appendChild(title);
+      card.appendChild(description);
+      card.appendChild(actions);
+
+      return card;
+    }
+
+
+    /*
+     * Render a collection of repositories.
+     */
+    function renderProjects(repos, container) {
+
+      container.replaceChildren();
+
+      repos.forEach(repo => {
+        container.appendChild(
+          createProjectCard(repo)
+        );
+      });
+    }
+
+
+    /*
+     * Fetch every public repository owned by Mind X Associates.
+     *
+     * GitHub allows up to 100 repositories per page.
+     * This loop also supports more than 100 repositories.
+     */
+    async function fetchClientTools() {
+
+      const allRepos = [];
+      let page = 1;
+
+      while (true) {
+
+        const response = await fetch(
+          `https://api.github.com/users/${GITHUB_USERNAME}/repos` +
+          `?type=owner&sort=updated&per_page=100&page=${page}`,
+          {
+            headers: {
+              "Accept": "application/vnd.github+json"
+            }
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(
+            `GitHub API returned ${response.status}`
+          );
+        }
+
+        const repos = await response.json();
+
+        allRepos.push(...repos);
+
+        if (repos.length < 100) {
+          break;
+        }
+
+        page++;
+      }
+
+      return allRepos;
+    }
+
+    /*
+     * Main application
+     */
+    async function loadProjects() {
+
+      const clientContainer = document.getElementById("client-projects");
+      const therapistContainer = document.getElementById("therapist-projects");
+
+      try {
+
+        const repositories =
+          await fetchClientTools();
+
+
+        /*
+         * IMPORTANT FILTER:
+         *
+         * Only repositories tagged with the GitHub topic
+         * "for-clients" are displayed.
+         */
+
+        const hasTopic = (repo, topic) =>
+          Array.isArray(repo.topics) &&
+          repo.topics.some(item => item.toLowerCase() === topic);
+
+
+        /*
+         * Don't show the repository that powers
+         * this landing page itself.
+         */
+
+        const projectRepos = repositories.filter(repo =>
+          repo.name.toLowerCase() !==
+          "mindxassociates.github.io"
+        );
+
+
+        /*
+         * LANGUAGE SEPARATION
+         *
+         * Chinese description = 中文项目
+         * Everything else = Projects
+         */
+
+        const englishProjects = projectRepos.filter(repo =>
+          !containsChinese(repo.description || "")
+        );
+        const clientProjects = englishProjects.filter(repo => hasTopic(repo, "for-clients"));
+        const therapistProjects = englishProjects.filter(repo => hasTopic(repo, "for-therapists"));
+
+        /*
+         * RENDER ENGLISH
+         */
+
+        function renderSection(repos, container, emptyText) {
+          if (repos.length > 0) {
+            renderProjects(repos, container);
+          } else {
+            container.replaceChildren();
+          const empty = document.createElement("div");
+          empty.className = "status";
+            empty.textContent = emptyText;
+            container.appendChild(empty);
+          }
+        }
+
+        renderSection(clientProjects, clientContainer, "More client tools are coming soon.");
+        renderSection(therapistProjects, therapistContainer, "More therapist resources are coming soon.");
+
+      } catch (error) {
+
+        console.error(
+          "Unable to load GitHub projects:",
+          error
+        );
+
+
+        /*
+         * Fail gracefully.
+         *
+         * The rest of the website remains functional
+         * if GitHub's API is temporarily unavailable.
+         */
+
+        [clientContainer, therapistContainer].forEach(container => {
+          container.replaceChildren();
+          const fallback = document.createElement("div");
+          fallback.className = "status";
+          fallback.textContent = "Resources are temporarily unavailable. Please check back shortly.";
+          container.appendChild(fallback);
+        });
+
+      }
+    }
+
+
+    loadProjects();
+  </script>
+
+  <script>
+    window.addEventListener('load', function() {
+      var widgetElement = document.createElement('charla-widget');
+      widgetElement.setAttribute('p', '6775798e-1252-46af-8610-ab366adc01ae');
+      document.body.appendChild(widgetElement);
+
+      var widgetCode = document.createElement('script');
+      widgetCode.src = 'https://app.charla.com/widget/widget.js';
+      document.body.appendChild(widgetCode);
+    });
+  </script>
+
+</body>
+</html>
