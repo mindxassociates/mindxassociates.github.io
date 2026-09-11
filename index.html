@@ -505,6 +505,52 @@
       .hero::before, .hero::after { animation: none; }
       .project-card { transform: none !important; }
     }
+
+    /* Integrated brand lockup + motion system */
+    .brand-lockup { display:flex; align-items:center; gap:14px; margin-bottom:clamp(28px,5vw,48px); position:relative; z-index:2; }
+    .logo-shell { width:92px; height:66px; display:grid; place-items:center; flex:0 0 auto; border:1px solid rgba(103,199,216,.2); border-radius:18px; background:linear-gradient(145deg,rgba(103,199,216,.1),rgba(255,255,255,.025)); box-shadow:0 14px 38px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.06); }
+    .brand-mark { width:74px; height:52px; object-fit:contain; float:none; margin:0; border-radius:0; mix-blend-mode:normal; filter:drop-shadow(0 0 16px rgba(103,199,216,.28)); }
+    .brand-copy .eyebrow { margin:0 0 4px; }
+    .brand-subline { color:var(--muted); font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; }
+    .signal-field { position:absolute; width:300px; height:300px; right:5%; top:50%; transform:translateY(-50%); z-index:-1; pointer-events:none; opacity:.72; transition:transform .25s ease-out; }
+    .signal-field .orbit { position:absolute; inset:var(--inset); border:1px solid rgba(103,199,216,.17); border-radius:50%; animation:orbitSpin var(--speed) linear infinite; }
+    .signal-field .orbit::before { content:""; position:absolute; width:9px; height:9px; top:9%; left:18%; border-radius:50%; background:var(--dot); box-shadow:0 0 18px var(--dot),0 0 40px var(--dot); }
+    .signal-field .o1 { --inset:0; --speed:16s; --dot:#67c7d8; }
+    .signal-field .o2 { --inset:42px; --speed:11s; --dot:#8b8cf8; animation-direction:reverse; }
+    .signal-field .o3 { --inset:92px; --speed:8s; --dot:#9cc6d7; }
+    .signal-core { position:absolute; inset:126px; border-radius:50%; background:#67c7d8; box-shadow:0 0 22px #67c7d8,0 0 70px rgba(103,199,216,.45); animation:corePulse 2.8s ease-in-out infinite; }
+    .project-card { animation:cardFloat 7s ease-in-out infinite; }
+    #therapist-projects .project-card { animation-delay:-3.5s; }
+    .project-card::after { background:linear-gradient(90deg,transparent,rgba(103,199,216,.48),transparent); animation:edgeScan 4.8s ease-in-out infinite; }
+    .button { position:relative; overflow:hidden; }
+    .button::before { content:""; position:absolute; inset:-40% auto -40% -55%; width:34%; transform:skewX(-18deg); background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent); transition:left .55s ease; }
+    .button:hover::before { left:125%; }
+    body.motion-ready .projects-section { opacity:0; transform:translateY(26px); transition:opacity .75s ease,transform .75s cubic-bezier(.2,.7,.2,1); }
+    body.motion-ready .projects-section.is-visible { opacity:1; transform:none; }
+    @keyframes orbitSpin { to { transform:rotate(360deg); } }
+    @keyframes corePulse { 50% { transform:scale(1.45); opacity:.58; } }
+    @keyframes cardFloat { 50% { translate:0 -6px; } }
+    @keyframes edgeScan { 0%,100% { opacity:.18; transform:scaleX(.2); } 50% { opacity:.75; transform:scaleX(.9); } }
+    @media (max-width:700px) {
+      .hero { padding:28px 22px 30px; border-radius:22px; }
+      .brand-lockup { margin-bottom:30px; gap:12px; }
+      .logo-shell { width:76px; height:56px; border-radius:15px; }
+      .brand-mark { width:62px; height:43px; }
+      .brand-subline { font-size:.68rem; letter-spacing:.06em; }
+      .signal-field { width:220px; height:220px; right:-82px; top:48%; opacity:.42; }
+      .signal-field .o2 { --inset:32px; }
+      .signal-field .o3 { --inset:68px; }
+      .signal-core { inset:95px; }
+      .experience-nav { display:grid; grid-template-columns:1fr 1fr; width:100%; }
+      .experience-nav a { text-align:center; min-height:42px; display:grid; place-items:center; }
+      .experience-nav a:last-child { grid-column:1 / -1; }
+      .projects-section { padding:48px 0; }
+      .project-card { animation:none; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      .signal-field .orbit,.signal-core,.project-card,.project-card::after { animation:none!important; }
+      body.motion-ready .projects-section { opacity:1; transform:none; }
+    }
   </style>
 </head>
 
@@ -515,8 +561,11 @@
   <main class="page">
 
     <header class="hero">
-      <img class="brand-mark" src="./mindx-logo.webp" alt="Mind X Associates logo" width="78" height="78">
-      <div class="eyebrow">Mind X Associates</div>
+      <div class="brand-lockup">
+        <span class="logo-shell"><img class="brand-mark" src="./mindx-logo.webp" alt="Mind X Associates logo" width="74" height="52"></span>
+        <div class="brand-copy"><div class="eyebrow">Mind X Associates</div><div class="brand-subline">Tools for thoughtful change</div></div>
+      </div>
+      <div class="signal-field" aria-hidden="true"><span class="orbit o1"></span><span class="orbit o2"></span><span class="orbit o3"></span><span class="signal-core"></span></div>
 
       <h1>Free Tools.</h1>
 
@@ -887,6 +936,11 @@
   <script>
     (() => {
       const progress = document.querySelector('.scroll-progress');
+      document.body.classList.add('motion-ready');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); } });
+      }, { threshold: .12 });
+      document.querySelectorAll('.projects-section').forEach(section => observer.observe(section));
       const updateProgress = () => {
         const max = document.documentElement.scrollHeight - innerHeight;
         progress.style.width = `${max > 0 ? (scrollY / max) * 100 : 0}%`;
@@ -895,6 +949,11 @@
       updateProgress();
 
       if (matchMedia('(pointer: fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const field = document.querySelector('.signal-field');
+        document.querySelector('.hero').addEventListener('pointermove', event => {
+          const box = event.currentTarget.getBoundingClientRect();
+          field.style.transform = `translate(${(event.clientX-box.left-box.width/2)*.025}px, calc(-50% + ${(event.clientY-box.top-box.height/2)*.025}px))`;
+        });
         document.querySelectorAll('.project-card').forEach(card => {
           card.addEventListener('pointermove', event => {
             const box = card.getBoundingClientRect();
