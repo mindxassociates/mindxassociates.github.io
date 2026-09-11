@@ -447,9 +447,14 @@
       <div
         id="client-projects"
         class="projects-grid"
-        aria-live="polite"
       >
-        <div class="status">正在加载来访者工具…</div>
+        <article class="project-card">
+          <h3>来访者工具</h3>
+          <p>探索有助于自我觉察、情绪调节、人际关系与个人成长的自助工具。</p>
+          <div class="project-actions">
+            <a class="button button-primary" href="https://www.mindx.us/zh/self-guided-tools" target="_blank" rel="noopener noreferrer">探索来访者工具 ↗</a>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -464,8 +469,27 @@
         </div>
       </div>
 
-      <div id="therapist-projects" class="projects-grid" aria-live="polite">
-        <div class="status">正在加载咨询师工具…</div>
+      <div id="therapist-projects" class="projects-grid">
+        <article class="project-card">
+          <h3>咨询师工具</h3>
+          <p>浏览适用于临床实践、专业学习与执业发展的实用工具。</p>
+          <div class="project-actions">
+            <a class="button button-primary" href="https://www.mindx.us/zh/therapist-toolbox" target="_blank" rel="noopener noreferrer">探索咨询师工具 ↗</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="projects-section" aria-labelledby="github-heading">
+      <div class="section-heading">
+        <div>
+          <div class="section-label">开源项目</div>
+          <h2 id="github-heading">Mind X 的 GitHub</h2>
+          <p>查看 Mind X 公开工具与项目的源代码仓库。</p>
+        </div>
+      </div>
+      <div class="project-actions">
+        <a class="button button-secondary" href="https://github.com/mindxassociates" target="_blank" rel="noopener noreferrer">访问 GitHub ↗</a>
       </div>
     </section>
 
@@ -487,7 +511,7 @@
   </footer>
 
 
-  <script>
+  <script type="application/x-legacy-disabled">
     const GITHUB_USERNAME = "mindxassociates";
     const PROJECTS_DOMAIN = "https://projects.mindx.us";
 

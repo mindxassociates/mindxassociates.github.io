@@ -448,9 +448,14 @@
       <div
         id="client-projects"
         class="projects-grid"
-        aria-live="polite"
       >
-        <div class="status">Loading client tools…</div>
+        <article class="project-card">
+          <h3>Tools for Clients</h3>
+          <p>Explore self-guided tools for reflection, coping, relationships, and personal growth.</p>
+          <div class="project-actions">
+            <a class="button button-primary" href="https://www.mindx.us/resources/for-clients/self-guided-tools" target="_blank" rel="noopener noreferrer">Explore Client Tools ↗</a>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -468,8 +473,27 @@
         </div>
       </div>
 
-      <div id="therapist-projects" class="projects-grid" aria-live="polite">
-        <div class="status">Loading therapist resources…</div>
+      <div id="therapist-projects" class="projects-grid">
+        <article class="project-card">
+          <h3>Tools for Therapists</h3>
+          <p>Browse practical tools for clinical work, professional learning, and practice development.</p>
+          <div class="project-actions">
+            <a class="button button-primary" href="https://www.mindx.us/resources/for-therapists/toolbox" target="_blank" rel="noopener noreferrer">Explore Therapist Tools ↗</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="projects-section" aria-labelledby="github-heading">
+      <div class="section-heading">
+        <div>
+          <div class="section-label">Open Source</div>
+          <h2 id="github-heading">Mind X on GitHub</h2>
+          <p>View the source repositories behind our public tools and projects.</p>
+        </div>
+      </div>
+      <div class="project-actions">
+        <a class="button button-secondary" href="https://github.com/mindxassociates" target="_blank" rel="noopener noreferrer">Visit GitHub ↗</a>
       </div>
     </section>
 
@@ -491,7 +515,7 @@
   </footer>
 
 
-  <script>
+  <script type="application/x-legacy-disabled">
     const GITHUB_USERNAME = "mindxassociates";
     const PROJECTS_DOMAIN = "https://projects.mindx.us";
 
